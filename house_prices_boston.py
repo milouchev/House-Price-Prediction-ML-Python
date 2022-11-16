@@ -99,6 +99,7 @@ def backtest(data, predictors, target):
     preds = np.concatenate(all_preds)
     return preds, accuracy_score(data.iloc[START:][target], preds)
 
+# Checking the accuracy of the model
 preds, accuracy = backtest(price_data, predictors, target)
 accuracy = round(accuracy*100,2)
 print("Accuracy: " + str(accuracy) + "%")
@@ -121,6 +122,7 @@ yearly = price_data.rolling(52, min_periods=1).mean()
 yearly_ratios = [p + "_year" for p in predictors]
 price_data[yearly_ratios] = price_data[predictors] / yearly[predictors]
 
+# Checking the accuracy of the model again
 preds, accuracy = backtest(price_data, predictors + yearly_ratios, target)
 accuracy = round(accuracy*100,2)
 print("Accuracy: " + str(accuracy) + "%")
